@@ -13,12 +13,18 @@ import albumRoutes from "./routes/album.router.js";
 import statRoutes from "./routes/stat.router.js";
 
 const app = express();
-
+app.use(cors());
 // Pass no parameters
 app.use(clerkMiddleware()); // this will add auth to the req object => req.auth.userId;
 
 dotenv.config();
-// app.use(cors());
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   })
+// );
+
 app.use(express.json()); // to parse req.body
 const __dirname = path.resolve();
 app.use("/api/users", userRoutes);
@@ -42,14 +48,12 @@ app.get("/", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res
-    .status(400)
-    .json({
-      message:
-        process.env.NODE_ENV === "production"
-          ? "internal server error"
-          : err.message,
-    });
+  res.status(400).json({
+    message:
+      process.env.NODE_ENV === "production"
+        ? "internal server error"
+        : err.message,
+  });
 });
 const PORT = process.env.PORT | 5000;
 app.listen(PORT, () => {

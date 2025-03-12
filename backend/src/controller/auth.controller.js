@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 
-export const authCallback = async (req, res) => {
+export const authCallback = async (req, res, next) => {
   try {
     const { id, firstName, lastName, imageUrl } = req.body;
 
@@ -16,6 +16,6 @@ export const authCallback = async (req, res) => {
     }
   } catch (error) {
     console.log("error in auth callback in auth.router.js", error);
-    res.status(500).json({ success: false, message: error });
+    next(error);
   }
 };

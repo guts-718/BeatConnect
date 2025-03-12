@@ -7,3 +7,6 @@
 // "type":"module" in backend package.json
 
 // cloudinary + express-fileupload
+// backend -- express.Router and frontend -- react-router-dom
+
+// npx shadcn@2.3.0 add resizable
